@@ -28,6 +28,9 @@ export class LoadBalancerStack extends Stack {
         machineImage: new ec2.AmazonLinuxImage(),
         securityGroup: sg
       })
+    asg.scaleOnCpuUtilization('KeepSpareCPU', {
+      targetUtilizationPercent: 40
+    });
 
     const listener = lb.addListener('Listener', {
       port: 80
